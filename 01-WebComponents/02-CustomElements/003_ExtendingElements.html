@@ -1,0 +1,30 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+  <title>Расширение элементов</title>
+</head>
+<body>
+
+<!--Элемент div расширенный пользовательским элементом my-message-->
+<div is="my-message"></div>
+
+<script>
+  // Создание нового прототипа на основе прототипа элемента DIV
+  var MyMessageBlockProto = Object.create(HTMLDivElement.prototype);
+
+  // Установка функции обратного вызова, которая будет определять содержимое расширенного элемента.
+  MyMessageBlockProto.createdCallback = function() {
+    this.innerHTML     = "<a href='http://google.com'>Google</a>";
+    this.style.border  = "1px solid gray";
+    this.style.padding = "15px";
+  };
+
+  // Регистрация пользовательского элемента как расширения для DIV
+  var MyMessageBlock = document.registerElement("my-message", {
+    prototype: MyMessageBlockProto,
+    extends  : "div"
+  });
+</script>
+
+</body>
+</html>

@@ -1,0 +1,39 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+  <title>Расширение элементов</title>
+</head>
+<body>
+
+<script>
+  var MyMessageBlockProto = Object.create(HTMLDivElement.prototype);
+
+  MyMessageBlockProto.createdCallback = function() {
+    this.innerHTML     = "<a href='http://google.com'>Google</a>";
+    this.style.border  = "1px solid gray";
+    this.style.padding = "15px";
+  };
+
+  var MyMessageBlock = document.registerElement("my-message", {
+    prototype: MyMessageBlockProto,
+    extends  : "div"
+  });
+</script>
+
+<!--Вариант 1-->
+<div is="my-message"></div>
+
+<script>
+  // Вариант 2
+  var div1 = document.createElement("div", "my-message");
+  document.body.appendChild(div1);
+
+  // Вариант 3
+  document.body.appendChild(new MyMessageBlock());
+
+  // Вариант 4
+  document.body.innerHTML += "<div is='my-message'></div>";
+</script>
+
+</body>
+</html>
